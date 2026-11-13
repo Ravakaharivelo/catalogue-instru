@@ -25,6 +25,7 @@ body {
   color: #1e293b;
 }
 
+/* HEADER */
 header {
   background: linear-gradient(135deg, #101d3a, #294d83);
   color: white;
@@ -43,6 +44,7 @@ header p {
   font-size: 14px;
 }
 
+/* MAIN */
 main {
   max-width: 850px;
   margin: 25px auto;
@@ -64,7 +66,7 @@ main {
   line-height: 1.5;
 }
 
-/* RECHERCHE */
+/* SEARCH */
 .search-box {
   position: relative;
   margin: 22px 0 15px;
@@ -109,6 +111,7 @@ main {
   border-radius: 20px;
   font-size: 13px;
   cursor: pointer;
+  transition: .2s;
 }
 
 .filter-btn:hover,
@@ -118,7 +121,7 @@ main {
   border-color: #1d4ed8;
 }
 
-/* OUTILS */
+/* TOOLS */
 .tools {
   display: flex;
   justify-content: space-between;
@@ -226,7 +229,7 @@ main {
   font-size: 14px;
 }
 
-/* RETOUR EN HAUT */
+/* TOP BUTTON */
 #topBtn {
   position: fixed;
   bottom: 22px;
@@ -244,6 +247,10 @@ main {
   z-index: 10;
 }
 
+#topBtn:hover {
+  background: #142f70;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -252,7 +259,9 @@ footer {
   font-size: 12px;
 }
 
+/* MOBILE */
 @media(max-width: 600px) {
+
   header {
     padding: 30px 15px;
   }
@@ -282,6 +291,7 @@ footer {
   .copy-btn {
     padding: 8px;
   }
+
 }
 </style>
 </head>
@@ -305,6 +315,7 @@ footer {
   <!-- RECHERCHE -->
   <div class="search-box">
     <span class="search-icon">🔎</span>
+
     <input
       id="search"
       type="search"
@@ -313,16 +324,18 @@ footer {
     >
   </div>
 
-  <!-- CATEGORIES -->
+  <!-- FILTRES AUTOMATIQUES -->
   <div class="filters" id="filters"></div>
 
   <!-- COMPTEUR ET TRI -->
   <div class="tools">
+
     <div class="counter" id="counter"></div>
 
     <button class="sort-btn" id="sortBtn">
       ↕ Tri : A – Z
     </button>
+
   </div>
 
   <!-- LISTE DES CHANSONS -->
@@ -344,15 +357,18 @@ footer {
 // 1. DONNEES DES CHANSONS
 // ======================================
 
-// Ampidiro eto ny hira rehetra.
-// Catégorie: FFPM, Fifohazana,
-// Fihirana Fanampiny na Katolika.
+// Sokajy azo ampiasaina:
+// FFPM
+// Fifohazana
+// Fihirana Fanampiny
+// Katolika
+// Variétés Évangéliques
 
 const chansons = [
 
   {
     nom: "Adidiko ianao (Barry's)",
-    categorie: "FFPM"
+    categorie: "Variétés Évangéliques"
   },
 
   {
@@ -362,7 +378,7 @@ const chansons = [
 
   {
     nom: "AFAKA - AFAFI",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Variétés Évangéliques"
   },
 
   {
@@ -372,7 +388,7 @@ const chansons = [
 
   {
     nom: "Afonny fanahy (Dayvide)",
-    categorie: "Katolika"
+    categorie: "Variétés Évangéliques"
   },
 
   {
@@ -387,12 +403,12 @@ const chansons = [
 
   {
     nom: "AJC & JAO & MILY CLEMENT Zanaka adala",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Variétés Évangéliques"
   },
 
   {
     nom: "AKON'NY LANITRA - Ekeko re",
-    categorie: "FFPM"
+    categorie: "Fihirana Fanampiny"
   }
 
 ];
@@ -412,7 +428,7 @@ let categorieActive = 'Toutes';
 let ordreAZ = true;
 
 // ======================================
-// 3. NORMALISATION RECHERCHE
+// 3. NORMALISATION
 // ======================================
 
 function normaliser(texte) {
@@ -425,29 +441,45 @@ function normaliser(texte) {
 }
 
 // ======================================
-// 4. CREATION AUTOMATIQUE DES FILTRES
+// 4. CREATION AUTOMATIQUE DES CATEGORIES
 // ======================================
 
 const categoriesDisponibles = [
-  ...new Set(chansons.map(chanson => chanson.categorie))
-].sort((a, b) => a.localeCompare(b, 'fr'));
-
-const toutesCategories = [
-  'Toutes',
-  ...categoriesDisponibles
+  'FFPM',
+  'Fifohazana',
+  'Fihirana Fanampiny',
+  'Katolika',
+  'Variétés Évangéliques'
 ];
 
-toutesCategories.forEach(categorie => {
+// Bouton Toutes
+const btnToutes = document.createElement('button');
+
+btnToutes.className = 'filter-btn active';
+btnToutes.textContent = 'Toutes';
+
+btnToutes.addEventListener('click', () => {
+
+  categorieActive = 'Toutes';
+
+  document.querySelectorAll('.filter-btn')
+    .forEach(b => b.classList.remove('active'));
+
+  btnToutes.classList.add('active');
+
+  afficher();
+
+});
+
+filters.appendChild(btnToutes);
+
+// Création des boutons catégories
+categoriesDisponibles.forEach(categorie => {
 
   const btn = document.createElement('button');
 
   btn.className = 'filter-btn';
   btn.textContent = categorie;
-  btn.dataset.category = categorie;
-
-  if (categorie === 'Toutes') {
-    btn.classList.add('active');
-  }
 
   btn.addEventListener('click', () => {
 
@@ -506,12 +538,14 @@ function afficher() {
   if (resultats.length === 0) {
 
     const vide = document.createElement('div');
+
     vide.className = 'empty';
     vide.textContent = '🎵 Aucune chanson trouvée.';
 
     liste.appendChild(vide);
 
     return;
+
   }
 
   resultats.forEach(chanson => {
@@ -519,28 +553,33 @@ function afficher() {
     const div = document.createElement('div');
     div.className = 'chanson';
 
-    // ICON
+    // ICON MUSIQUE
     const icon = document.createElement('span');
+
     icon.className = 'music-icon';
     icon.textContent = '♫';
 
     // INFORMATIONS
     const info = document.createElement('div');
+
     info.className = 'song-info';
 
     const nom = document.createElement('div');
+
     nom.className = 'song-name';
     nom.textContent = chanson.nom;
 
     const categorie = document.createElement('span');
+
     categorie.className = 'song-category';
     categorie.textContent = chanson.categorie;
 
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // BOUTON COPIER
+    // COPIER
     const copy = document.createElement('button');
+
     copy.className = 'copy-btn';
     copy.textContent = 'Copier';
 
