@@ -22,7 +22,7 @@ body {
   font-family: Arial, sans-serif;
   background: #f1f4f9;
   color: #1e293b;
-  padding-bottom: 70px; /* Arovan'ny pub bar ambany */
+  padding-bottom: 70px;
 }
 
 /* HEADER */
@@ -276,7 +276,7 @@ main {
   font-size: 14px;
 }
 
-/* PUB FLASH EN BAS (STICKY ANIMEE) */
+/* PUB FLASH EN BAS (STICKY) */
 .flash-pub-bar {
   position: fixed;
   bottom: 0;
@@ -291,12 +291,6 @@ main {
   box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
   z-index: 999;
   border-top: 2px solid #2563eb;
-  animation: pulsePub 3s infinite alternate;
-}
-
-@keyframes pulsePub {
-  0% { border-top-color: #2563eb; }
-  100% { border-top-color: #16a34a; }
 }
 
 .flash-content {
@@ -314,13 +308,6 @@ main {
   padding: 3px 6px;
   border-radius: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  animation: blinkBadge 1.5s infinite;
-}
-
-@keyframes blinkBadge {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
 }
 
 .flash-text-container {
@@ -329,18 +316,18 @@ main {
   white-space: nowrap;
   overflow: hidden;
   position: relative;
-  width: 260px;
+  width: 240px;
 }
 
 @media(min-width: 600px) {
   .flash-text-container {
-    width: 420px;
+    width: 400px;
   }
 }
 
 .flash-text-slider {
   display: inline-block;
-  animation: slideText 18s linear infinite; /* Ovay ho 15s na 18s ohatra raha tianao hiadana kokoa */
+  animation: slideText 18s linear infinite;
 }
 
 @keyframes slideText {
@@ -349,7 +336,7 @@ main {
 }
 
 .flash-btn {
-  background: #16a34a;
+  background: #2563eb;
   color: white;
   border: none;
   padding: 7px 12px;
@@ -357,19 +344,125 @@ main {
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
-  text-decoration: none;
   white-space: nowrap;
   transition: 0.2s;
 }
 
 .flash-btn:hover {
+  background: #1d4ed8;
+}
+
+/* MODAL POPUP (MOMBA NY CLÉ USB) */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: scaleUp 0.3s ease;
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: #f1f5f9;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.modal-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.usb-gallery {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.usb-gallery img {
+  width: 48%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.usb-details {
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.usb-details ul {
+  padding-left: 18px;
+  margin-top: 6px;
+}
+
+.modal-whatsapp-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #16a34a;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.modal-whatsapp-btn:hover {
   background: #15803d;
 }
 
 /* TOP BUTTON */
 #topBtn {
   position: fixed;
-  bottom: 65px; /* Ambonkely an'ilay pub bar */
+  bottom: 65px;
   right: 20px;
   width: 40px;
   height: 40px;
@@ -398,31 +491,11 @@ footer {
 
 /* MOBILE */
 @media(max-width: 600px) {
-  header {
-    padding: 30px 15px;
-  }
-  header h1 {
-    font-size: 20px;
-  }
-  main {
-    margin: 14px 10px;
-    padding: 17px;
-  }
-  .tools {
-    align-items: stretch;
-  }
-  .counter,
-  .selected-counter,
-  .sort-btn {
-    text-align: center;
-    width: 100%;
-  }
-  .song-name {
-    font-size: 13px;
-  }
-  .selection-panel {
-    padding: 12px;
-  }
+  header { padding: 30px 15px; }
+  header h1 { font-size: 20px; }
+  main { margin: 14px 10px; padding: 17px; }
+  .tools { align-items: stretch; }
+  .counter, .selected-counter, .sort-btn { text-align: center; width: 100%; }
 }
 </style>
 </head>
@@ -460,31 +533,23 @@ footer {
 
   <!-- COMPTEURS ET TRI -->
   <div class="tools">
-
     <div class="counter" id="counter"></div>
-
     <div class="selected-counter" id="selectedCounter">
       ✓ 0 hira voafidy
     </div>
-
     <button class="sort-btn" id="sortBtn">
       ↕ Tri : A – Z
     </button>
-
   </div>
 
   <!-- CARNET DE SELECTION -->
   <div class="selection-panel" id="selectionPanel">
-
     <h3>📋 Ma sélection</h3>
-
     <p class="selection-description">
       Voici les chansons que vous avez choisies.
       Vous pouvez faire une capture d'écran de cette liste.
     </p>
-
     <div class="selection-list" id="selectionList"></div>
-
   </div>
 
   <!-- LISTE DES CHANSONS -->
@@ -496,20 +561,48 @@ footer {
   © Instru-Karaoke-Mg | Catalogue musical
 </footer>
 
-<!-- PUB FLASH EN BAS DE L'ECRAN (STICKY MISERANA) -->
+<!-- PUB FLASH EN BAS (STICKY) -->
 <div class="flash-pub-bar">
   <div class="flash-content">
     <span class="flash-badge">Vaovao</span>
     <div class="flash-text-container">
       <div class="flash-text-slider">
-        💾 Misy Clé USB vaovao koa ato tsara kalitao! Afaka vidinao mitokana na ampidirinao ny hira voafidinao. 
+        💾 Misy Clé USB vaovao koa ato tsara kalitao! Kitiho eto raha te hahalala ny antsipiriany sy ny sary.
       </div>
     </div>
   </div>
-  <!-- Ovay ho rohy WhatsApp na Messenger tianao handefasana ny mpanjifa -->
-  <a href="https://wa.me/261340000000?text=Salama%2C%20mbola%20misy%20clé%20USB%20ve%20?" target="_blank" class="flash-btn">
-    Hividy USB ↗
-  </a>
+  <!-- Bokotra manokatra ilay Fenitra (Modal) -->
+  <button id="openModalBtn" class="flash-btn">
+    Jereo ny USB ↗
+  </button>
+</div>
+
+<!-- BOATY KELY (MODAL) MITONDRA NY SARY SY MOMBA NY USB -->
+<div class="modal-overlay" id="usbModal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModalBtn">&times;</button>
+    <div class="modal-title">💾 Mombamomba ny Clé USB Amidiana</div>
+    
+    <!-- Sary roa nalefanao -->
+    <div class="usb-gallery">
+      <img src="866760065_1096968943205088_7105880106417060940_n.jpg" alt="Clé USB Mainty">
+      <img src="885573733_3033969583620207_5737285282631286881_n.webp" alt="Clé USB Mavo/Volafotsy">
+    </div>
+
+    <div class="usb-details">
+      <p><b>Fitaovana azo antoka sy haingana:</b></p>
+      <ul>
+        <li>Karazany: Kingston (USB 2.0 / USB 3.0)</li>
+        <li>Fahafahana (Capacité): 16GB / 32GB</li>
+        <li><b>Tombony:</b> Afaka vidinao fotsiny izy ireny, na koa ampidirantsika mivantana ao anaty USB ny hira voafidinao!</li>
+      </ul>
+    </div>
+
+    <!-- Bokotra handefasana hafatra mivantana -->
+    <a href="https://wa.me/261340000000?text=Salama%2C%20liana%20tamin%2اع%20clé%20USB%20aho%20izy%20ita%20tao%20amin%2'ny%20catalogue." target="_blank" class="modal-whatsapp-btn">
+      Mifandraisa aminay amin'ny WhatsApp 💬
+    </a>
+  </div>
 </div>
 
 <button id="topBtn" title="Retour en haut">
@@ -517,6 +610,30 @@ footer {
 </button>
 
 <script>
+
+// ======================================
+// 0. GESTION DU MODAL USB (Famakiana sy Fanakatonana)
+// ======================================
+
+const openModalBtn = document.getElementById('openModalBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const usbModal = document.getElementById('usbModal');
+
+openModalBtn.addEventListener('click', () => {
+  usbModal.style.display = 'flex';
+});
+
+closeModalBtn.addEventListener('click', () => {
+  usbModal.style.display = 'none';
+});
+
+// Manakatona koa raha manindry ivelan'ilay boaty kely
+window.addEventListener('click', (e) => {
+  if (e.target === usbModal) {
+    usbModal.style.display = 'none';
+  }
+});
+
 
 // ======================================
 // 1. DONNEES DES CHANSONS
