@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalogue R.PROD</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f5f7;
+  margin: 0;
+  padding: 20px;
+  color: #222;
+}
+main {
+  max-width: 750px;
+  margin: auto;
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+}
+h1 { text-align: center; color: #172554; }
+input {
+  width: 100%;
+  padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 15px 0;
+}
+#liste {
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<main>
+<h1>R.PROD KARAOKE</h1>
+<p>Catalogue des chansons</p>
+<input id="search" placeholder="Rechercher une chanson...">
+<div id="liste"></div>
+</main>
+
+<script>
+const chansons = `
+APETRAHO ETO NY LISTE TXT-NAO
+`;
+
+const liste = document.getElementById('liste');
+const recherche = document.getElementById('search');
+
+function afficher() {
+  const q = recherche.value.toLowerCase();
+  liste.innerHTML = '';
+
+  chansons.split('\n')
+    .filter(x => x.toLowerCase().includes(q))
+    .forEach(x => {
+      if (!x.trim()) return;
+      const p = document.createElement('p');
+      p.textContent = x;
+      liste.appendChild(p);
+    });
+}
+
+recherche.addEventListener('input', afficher);
+afficher();
+</script>
+</body>
+</html>
