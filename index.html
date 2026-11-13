@@ -126,7 +126,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 15px;
 }
@@ -137,6 +137,15 @@ main {
   padding: 11px 14px;
   border-radius: 9px;
   font-size: 13px;
+}
+
+.selected-counter {
+  color: #166534;
+  background: #dcfce7;
+  padding: 11px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .sort-btn {
@@ -206,20 +215,58 @@ main {
   border-radius: 20px;
 }
 
-.copy-btn {
-  border: none;
-  background: #f1f5f9;
-  color: #475569;
-  padding: 8px 10px;
-  border-radius: 8px;
+/* CHECKBOX */
+.song-checkbox {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
   cursor: pointer;
-  font-size: 12px;
-  flex-shrink: 0;
+  accent-color: #16a34a;
 }
 
-.copy-btn:hover {
-  background: #dbeafe;
-  color: #1d4ed8;
+/* MA SELECTION */
+.selection-panel {
+  display: none;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  background: #f0fdf4;
+}
+
+.selection-panel h3 {
+  color: #166534;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.selection-description {
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.selection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selection-item {
+  padding: 9px 10px;
+  background: white;
+  border: 1px solid #dcfce7;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.selection-item span {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  margin-top: 3px;
 }
 
 .empty {
@@ -280,18 +327,19 @@ footer {
   }
 
   .counter,
+  .selected-counter,
   .sort-btn {
     text-align: center;
+    width: 100%;
   }
 
   .song-name {
     font-size: 13px;
   }
 
-  .copy-btn {
-    padding: 8px;
+  .selection-panel {
+    padding: 12px;
   }
-
 }
 </style>
 </head>
@@ -310,12 +358,12 @@ footer {
   <p class="subtitle">
     Retrouvez facilement vos chansons préférées.
     Recherchez par titre ou nom d'artiste.
+    Cochez les chansons de votre choix pour créer votre sélection.
   </p>
 
   <!-- RECHERCHE -->
   <div class="search-box">
     <span class="search-icon">🔎</span>
-
     <input
       id="search"
       type="search"
@@ -324,17 +372,35 @@ footer {
     >
   </div>
 
-  <!-- FILTRES AUTOMATIQUES -->
+  <!-- FILTRES -->
   <div class="filters" id="filters"></div>
 
-  <!-- COMPTEUR ET TRI -->
+  <!-- COMPTEURS ET TRI -->
   <div class="tools">
 
     <div class="counter" id="counter"></div>
 
+    <div class="selected-counter" id="selectedCounter">
+      ✓ 0 hira voafidy
+    </div>
+
     <button class="sort-btn" id="sortBtn">
       ↕ Tri : A – Z
     </button>
+
+  </div>
+
+  <!-- CARNET DE SELECTION -->
+  <div class="selection-panel" id="selectionPanel">
+
+    <h3>📋 Ma sélection</h3>
+
+    <p class="selection-description">
+      Voici les chansons que vous avez choisies.
+      Vous pouvez faire une capture d'écran de cette liste.
+    </p>
+
+    <div class="selection-list" id="selectionList"></div>
 
   </div>
 
@@ -357,34 +423,23 @@ footer {
 // 1. DONNEES DES CHANSONS
 // ======================================
 
-// Sokajy azo ampiasaina:
-// FFPM
-// Fifohazana
-// Fihirana Fanampiny
-// Katolika
-// Variétés Évangéliques
-
 const chansons = [
-{
+  {
     nom: "1. Andriananahary masina indrindra (FFPM 1)",
     categorie: "FFPM"
   },
-
   {
     nom: "2. Misaora an'i Zanahary (FFPM 2)",
     categorie: "FFPM"
   },
-
   {
     nom: "3. Isaorana anie Andriamanitsika (FFPM 3)",
     categorie: "FFPM"
   },
-
   {
     nom: "4. Mamy ny fitianao (FFPM 4)",
     categorie: "FFPM"
   },
-
   {
     nom: "5. Jehovah, Ray an-danitra (FFPM 5)",
     categorie: "FFPM"
@@ -393,81 +448,66 @@ const chansons = [
     nom: "Adidiko ianao (Barry's)",
     categorie: "Variétés Évangéliques"
   },
-
-    {
+  {
     nom: "295. Miorena mafy tsara (FFPM 295 - Version Fifohazana)",
     categorie: "Fifohazana"
   },
-
   {
     nom: "Aina no fetra ry Tompo Mpanjaka (Fifohazana)",
     categorie: "Fifohazana"
   },
-
   {
     nom: "Aiza no misy Anao ry Jeso (FIFOHAZANA)",
     categorie: "Fifohazana"
   },
-
   {
     nom: "Aiza no misy Anao ry Jeso (FIFOHAZANA) - Version 2",
     categorie: "Fifohazana"
   },
-
   {
     nom: "Asandrato avo re ny hiranao (FIFOHAZANA) - Version 2",
     categorie: "Fifohazana"
   },
-
-   {
+  {
     nom: "1. Hira faneva 30-taona FJKM (FIHIRANA FANAMPINY 1)",
     categorie: "Fihirana Fanampiny"
   },
-
   {
     nom: "2. He, manolo-tena (Fihirana fanampiny 2)",
     categorie: "Fihirana Fanampiny"
   },
-
   {
     nom: "3. FF3.Jeso Vato fehizoro - Fihirana Fanampiny",
     categorie: "Fihirana Fanampiny"
   },
-
   {
     nom: "4. Ry Fanahy ô (Fihirana fanampiny 4)",
     categorie: "Fihirana Fanampiny"
   },
-
   {
     nom: "5. Izaho no fananganana ny maty (Fihirana fanampiny 5)",
     categorie: "Fihirana Fanampiny"
   },
-   {
+  {
     nom: "Andriamanitra ô, miantso anao aho, te hihaona aminao (Katolika)",
     categorie: "Katolika"
   },
-
   {
     nom: "Ankiniko Aminao (Katolika)",
     categorie: "Katolika"
   },
-
   {
     nom: "Dia ilay fitia - karaoké",
     categorie: "Katolika"
   },
-
   {
     nom: "E, sambatra sy tretrika (Vetson-kira) - Katolika",
     categorie: "Katolika"
   },
-
   {
     nom: "Endrey, mba mahafinaritra loatra izany mpianakavy (Katolika)",
     categorie: "Katolika"
   }
-
 ];
 
 // ======================================
@@ -477,12 +517,18 @@ const chansons = [
 const liste = document.getElementById('liste');
 const recherche = document.getElementById('search');
 const counter = document.getElementById('counter');
+const selectedCounter = document.getElementById('selectedCounter');
+const selectionPanel = document.getElementById('selectionPanel');
+const selectionList = document.getElementById('selectionList');
 const sortBtn = document.getElementById('sortBtn');
 const topBtn = document.getElementById('topBtn');
 const filters = document.getElementById('filters');
 
 let categorieActive = 'Toutes';
 let ordreAZ = true;
+
+// Mitahiry ireo hira voafidy
+const chansonsSelectionnees = new Set();
 
 // ======================================
 // 3. NORMALISATION
@@ -498,7 +544,7 @@ function normaliser(texte) {
 }
 
 // ======================================
-// 4. CREATION AUTOMATIQUE DES CATEGORIES
+// 4. CREATION DES CATEGORIES
 // ======================================
 
 const categoriesDisponibles = [
@@ -530,7 +576,7 @@ btnToutes.addEventListener('click', () => {
 
 filters.appendChild(btnToutes);
 
-// Création des boutons catégories
+// Boutons catégories
 categoriesDisponibles.forEach(categorie => {
 
   const btn = document.createElement('button');
@@ -556,7 +602,56 @@ categoriesDisponibles.forEach(categorie => {
 });
 
 // ======================================
-// 5. AFFICHAGE DES CHANSONS
+// 5. COMPTEUR ET CARNET DE SELECTION
+// ======================================
+
+function afficherSelection() {
+
+  const nombre = chansonsSelectionnees.size;
+
+  selectedCounter.textContent =
+    `✓ ${nombre} hira voafidy`;
+
+  selectionList.innerHTML = '';
+
+  if (nombre === 0) {
+
+    selectionPanel.style.display = 'none';
+
+    return;
+
+  }
+
+  selectionPanel.style.display = 'block';
+
+  // Afficher les chansons sélectionnées
+  chansons.forEach(chanson => {
+
+    if (!chansonsSelectionnees.has(chanson.nom)) {
+      return;
+    }
+
+    const item = document.createElement('div');
+
+    item.className = 'selection-item';
+
+    const nom = document.createElement('div');
+    nom.textContent = chanson.nom;
+
+    const categorie = document.createElement('span');
+    categorie.textContent = chanson.categorie;
+
+    item.appendChild(nom);
+    item.appendChild(categorie);
+
+    selectionList.appendChild(item);
+
+  });
+
+}
+
+// ======================================
+// 6. AFFICHAGE DES CHANSONS
 // ======================================
 
 function afficher() {
@@ -634,35 +729,39 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // COPIER
-    const copy = document.createElement('button');
+    // CHECKBOX DE SELECTION
+    const checkbox = document.createElement('input');
 
-    copy.className = 'copy-btn';
-    copy.textContent = 'Copier';
+    checkbox.type = 'checkbox';
+    checkbox.className = 'song-checkbox';
 
-    copy.addEventListener('click', async () => {
+    checkbox.checked =
+      chansonsSelectionnees.has(chanson.nom);
 
-      try {
+    checkbox.setAttribute(
+      'aria-label',
+      'Sélectionner ' + chanson.nom
+    );
 
-        await navigator.clipboard.writeText(chanson.nom);
+    checkbox.addEventListener('change', () => {
 
-        copy.textContent = '✓ Copié';
+      if (checkbox.checked) {
 
-        setTimeout(() => {
-          copy.textContent = 'Copier';
-        }, 1500);
+        chansonsSelectionnees.add(chanson.nom);
 
-      } catch (error) {
+      } else {
 
-        copy.textContent = 'Erreur';
+        chansonsSelectionnees.delete(chanson.nom);
 
       }
+
+      afficherSelection();
 
     });
 
     div.appendChild(icon);
     div.appendChild(info);
-    div.appendChild(copy);
+    div.appendChild(checkbox);
 
     liste.appendChild(div);
 
@@ -671,13 +770,13 @@ function afficher() {
 }
 
 // ======================================
-// 6. RECHERCHE INSTANTANEE
+// 7. RECHERCHE INSTANTANEE
 // ======================================
 
 recherche.addEventListener('input', afficher);
 
 // ======================================
-// 7. TRI A-Z / Z-A
+// 8. TRI A-Z / Z-A
 // ======================================
 
 sortBtn.addEventListener('click', () => {
@@ -693,7 +792,7 @@ sortBtn.addEventListener('click', () => {
 });
 
 // ======================================
-// 8. RETOUR EN HAUT
+// 9. RETOUR EN HAUT
 // ======================================
 
 window.addEventListener('scroll', () => {
@@ -713,10 +812,11 @@ topBtn.addEventListener('click', () => {
 });
 
 // ======================================
-// 9. LANCEMENT
+// 10. LANCEMENT
 // ======================================
 
 afficher();
+afficherSelection();
 
 </script>
 
