@@ -440,6 +440,12 @@ main {
   border-radius: 6px;
   border: 1px solid #cbd5e1;
   background: #e2e8f0;
+  cursor: pointer; /* Manondro fa azo tsindritina */
+  transition: 0.2s;
+}
+
+.usb-card img:hover {
+  opacity: 0.85;
 }
 
 .usb-card span {
@@ -448,6 +454,54 @@ main {
   font-weight: bold;
   color: #1d4ed8;
   margin-top: 6px;
+}
+
+/* LIGHTBOX (SARY LEHIBE BE MISEHO) */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  text-align: center;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: white;
+  color: #0f172a;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .usb-details {
@@ -606,11 +660,11 @@ footer {
     <!-- Sary roa mitovy habe tsara -->
     <div class="usb-gallery">
       <div class="usb-card">
-        <img src="usb16.jpg" alt="Clé USB 16GB">
+        <img src="usb16.jpg" alt="Clé USB 16GB" class="zoomable-img">
         <span>16 GB (USB 3.0)</span>
       </div>
       <div class="usb-card">
-        <img src="usb32.jpg" alt="Clé USB 32GB">
+        <img src="usb32.jpg" alt="Clé USB 32GB" class="zoomable-img">
         <span>32 GB (USB 3.0)</span>
       </div>
     </div>
@@ -631,6 +685,14 @@ footer {
   </div>
 </div>
 
+<!-- LIGHTBOX VOALOHANY (SARY LEHIBE) -->
+<div class="lightbox-overlay" id="lightboxModal">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="closeLightboxBtn">&times;</button>
+    <img id="lightboxImg" src="" alt="Sary Lehibe">
+  </div>
+</div>
+
 <button id="topBtn" title="Retour en haut">
   ↑
 </button>
@@ -638,7 +700,7 @@ footer {
 <script>
 
 // ======================================
-// 0. GESTION DU MODAL USB
+// 0. GESTION DU MODAL USB & LIGHTBOX SARY
 // ======================================
 
 const openModalBtn = document.getElementById('openModalBtn');
@@ -656,6 +718,29 @@ closeModalBtn.addEventListener('click', () => {
 window.addEventListener('click', (e) => {
   if (e.target === usbModal) {
     usbModal.style.display = 'none';
+  }
+});
+
+// Lightbox (Zoom sary)
+const lightboxModal = document.getElementById('lightboxModal');
+const lightboxImg = document.getElementById('lightboxImg');
+const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+const zoomableImgs = document.querySelectorAll('.zoomable-img');
+
+zoomableImgs.forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightboxModal.style.display = 'flex';
+  });
+});
+
+closeLightboxBtn.addEventListener('click', () => {
+  lightboxModal.style.display = 'none';
+});
+
+lightboxModal.addEventListener('click', (e) => {
+  if (e.target === lightboxModal) {
+    lightboxModal.style.display = 'none';
   }
 });
 
