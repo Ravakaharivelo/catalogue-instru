@@ -25,7 +25,6 @@ body {
   color: #1e293b;
 }
 
-/* HEADER */
 header {
   background: linear-gradient(135deg, #101d3a, #294d83);
   color: white;
@@ -44,7 +43,6 @@ header p {
   font-size: 14px;
 }
 
-/* MAIN */
 main {
   max-width: 850px;
   margin: 25px auto;
@@ -66,7 +64,7 @@ main {
   line-height: 1.5;
 }
 
-/* SEARCH */
+/* RECHERCHE */
 .search-box {
   position: relative;
   margin: 22px 0 15px;
@@ -95,7 +93,7 @@ main {
   font-size: 18px;
 }
 
-/* FILTERS */
+/* CATEGORIES */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -111,7 +109,6 @@ main {
   border-radius: 20px;
   font-size: 13px;
   cursor: pointer;
-  transition: .2s;
 }
 
 .filter-btn:hover,
@@ -121,7 +118,7 @@ main {
   border-color: #1d4ed8;
 }
 
-/* TOOLS */
+/* OUTILS */
 .tools {
   display: flex;
   justify-content: space-between;
@@ -149,7 +146,7 @@ main {
   color: #334155;
 }
 
-/* SONG LIST */
+/* LISTE */
 #liste {
   display: flex;
   flex-direction: column;
@@ -163,8 +160,8 @@ main {
   padding: 13px 12px;
   border: 1px solid #edf0f5;
   border-radius: 10px;
-  transition: .2s;
   background: white;
+  transition: .2s;
 }
 
 .chanson:hover {
@@ -182,14 +179,28 @@ main {
   background: #eff6ff;
   color: #2563eb;
   border-radius: 9px;
-  font-size: 17px;
+  font-size: 19px;
+}
+
+.song-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .song-name {
-  flex: 1;
   font-size: 14px;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.song-category {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 11px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 20px;
 }
 
 .copy-btn {
@@ -200,6 +211,7 @@ main {
   border-radius: 8px;
   cursor: pointer;
   font-size: 12px;
+  flex-shrink: 0;
 }
 
 .copy-btn:hover {
@@ -214,7 +226,7 @@ main {
   font-size: 14px;
 }
 
-/* BACK TO TOP */
+/* RETOUR EN HAUT */
 #topBtn {
   position: fixed;
   bottom: 22px;
@@ -232,10 +244,6 @@ main {
   z-index: 10;
 }
 
-#topBtn:hover {
-  background: #142f70;
-}
-
 /* FOOTER */
 footer {
   text-align: center;
@@ -244,9 +252,7 @@ footer {
   font-size: 12px;
 }
 
-/* MOBILE */
 @media(max-width: 600px) {
-
   header {
     padding: 30px 15px;
   }
@@ -299,7 +305,6 @@ footer {
   <!-- RECHERCHE -->
   <div class="search-box">
     <span class="search-icon">🔎</span>
-
     <input
       id="search"
       type="search"
@@ -309,42 +314,18 @@ footer {
   </div>
 
   <!-- CATEGORIES -->
-  <div class="filters" id="filters">
-
-    <button class="filter-btn active" data-category="Toutes">
-      Toutes
-    </button>
-
-    <button class="filter-btn" data-category="FFPM">
-      FFPM
-    </button>
-
-    <button class="filter-btn" data-category="Fifohazana">
-      Fifohazana
-    </button>
-
-    <button class="filter-btn" data-category="Fihirana Fanampiny">
-      Fihirana Fanampiny
-    </button>
-
-    <button class="filter-btn" data-category="Katolika">
-      Katolika
-    </button>
-
-  </div>
+  <div class="filters" id="filters"></div>
 
   <!-- COMPTEUR ET TRI -->
   <div class="tools">
-
     <div class="counter" id="counter"></div>
 
     <button class="sort-btn" id="sortBtn">
       ↕ Tri : A – Z
     </button>
-
   </div>
 
-  <!-- LISTE -->
+  <!-- LISTE DES CHANSONS -->
   <div id="liste"></div>
 
 </main>
@@ -359,85 +340,148 @@ footer {
 
 <script>
 
-// ===================================
-// LISTE DES CHANSONS
-// ===================================
+// ======================================
+// 1. DONNEES DES CHANSONS
+// ======================================
 
-const chansons = `
+// Ampidiro eto ny hira rehetra.
+// Catégorie: FFPM, Fifohazana,
+// Fihirana Fanampiny na Katolika.
 
-Adidiko ianao (Barry's)
-AFA - Faniriako
-AFAKA - AFAFI
-AFOIKO HO ANAO NY AIKO (RIJA RAKOTO) - (SANS PAROLE)
-Afonny fanahy (Dayvide)
-Agnao tokoa Jesoa ro zoky (Vetson'i Fianara) - -p
-AIA NAREO (FFA) - KTLM - (SANS PAROLE)
-AJC & JAO & MILY CLEMENT Zanaka adala
-AKON'NY LANITRA - Ekeko re
+const chansons = [
 
-`;
+  {
+    nom: "Adidiko ianao (Barry's)",
+    categorie: "FFPM"
+  },
 
-// ===================================
-// CONFIGURATION DES CATEGORIES
-// ===================================
+  {
+    nom: "AFA - Faniriako",
+    categorie: "Fifohazana"
+  },
 
-// Ampidiro eto ny catégorie an'ny hira tsirairay.
-// Ohatra:
-// "Adidiko ianao (Barry's)": "FFPM"
+  {
+    nom: "AFAKA - AFAFI",
+    categorie: "Fihirana Fanampiny"
+  },
 
-const categories = {
+  {
+    nom: "AFOIKO HO ANAO NY AIKO (RIJA RAKOTO) - (SANS PAROLE)",
+    categorie: "FFPM"
+  },
 
-};
+  {
+    nom: "Afonny fanahy (Dayvide)",
+    categorie: "Katolika"
+  },
 
-// ===================================
-// INITIALISATION
-// ===================================
+  {
+    nom: "Agnao tokoa Jesoa ro zoky (Vetson'i Fianara) - -p",
+    categorie: "Fifohazana"
+  },
+
+  {
+    nom: "AIA NAREO (FFA) - KTLM - (SANS PAROLE)",
+    categorie: "FFPM"
+  },
+
+  {
+    nom: "AJC & JAO & MILY CLEMENT Zanaka adala",
+    categorie: "Fihirana Fanampiny"
+  },
+
+  {
+    nom: "AKON'NY LANITRA - Ekeko re",
+    categorie: "FFPM"
+  }
+
+];
+
+// ======================================
+// 2. INITIALISATION
+// ======================================
 
 const liste = document.getElementById('liste');
 const recherche = document.getElementById('search');
 const counter = document.getElementById('counter');
 const sortBtn = document.getElementById('sortBtn');
 const topBtn = document.getElementById('topBtn');
-
-const toutesLesChansons = chansons
-  .split('\n')
-  .map(x => x.trim())
-  .filter(x => x.length > 0);
+const filters = document.getElementById('filters');
 
 let categorieActive = 'Toutes';
 let ordreAZ = true;
 
-// ===================================
-// NORMALISATION
-// Recherche sans accent
-// ===================================
+// ======================================
+// 3. NORMALISATION RECHERCHE
+// ======================================
 
 function normaliser(texte) {
+
   return texte
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
+
 }
 
-// ===================================
-// AFFICHAGE
-// ===================================
+// ======================================
+// 4. CREATION AUTOMATIQUE DES FILTRES
+// ======================================
+
+const categoriesDisponibles = [
+  ...new Set(chansons.map(chanson => chanson.categorie))
+].sort((a, b) => a.localeCompare(b, 'fr'));
+
+const toutesCategories = [
+  'Toutes',
+  ...categoriesDisponibles
+];
+
+toutesCategories.forEach(categorie => {
+
+  const btn = document.createElement('button');
+
+  btn.className = 'filter-btn';
+  btn.textContent = categorie;
+  btn.dataset.category = categorie;
+
+  if (categorie === 'Toutes') {
+    btn.classList.add('active');
+  }
+
+  btn.addEventListener('click', () => {
+
+    categorieActive = categorie;
+
+    document.querySelectorAll('.filter-btn')
+      .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    afficher();
+
+  });
+
+  filters.appendChild(btn);
+
+});
+
+// ======================================
+// 5. AFFICHAGE DES CHANSONS
+// ======================================
 
 function afficher() {
 
   const q = normaliser(recherche.value.trim());
 
-  let resultats = toutesLesChansons.filter(chanson => {
+  let resultats = chansons.filter(chanson => {
 
     const rechercheOK =
-      normaliser(chanson).includes(q);
-
-    const categorieChanson =
-      categories[chanson] || 'Non classée';
+      normaliser(chanson.nom).includes(q);
 
     const categorieOK =
       categorieActive === 'Toutes' ||
-      categorieChanson === categorieActive;
+      chanson.categorie === categorieActive;
 
     return rechercheOK && categorieOK;
 
@@ -445,7 +489,9 @@ function afficher() {
 
   // TRI ALPHABETIQUE
   resultats.sort((a, b) =>
-    a.localeCompare(b, 'fr', { sensitivity: 'base' })
+    a.nom.localeCompare(b.nom, 'fr', {
+      sensitivity: 'base'
+    })
   );
 
   if (!ordreAZ) {
@@ -455,12 +501,15 @@ function afficher() {
   liste.innerHTML = '';
 
   counter.textContent =
-    `${resultats.length} chanson(s) trouvée(s) / ${toutesLesChansons.length} au total`;
+    `${resultats.length} chanson(s) trouvée(s) / ${chansons.length} au total`;
 
   if (resultats.length === 0) {
 
-    liste.innerHTML =
-      '<div class="empty">🎵 Aucune chanson trouvée.</div>';
+    const vide = document.createElement('div');
+    vide.className = 'empty';
+    vide.textContent = '🎵 Aucune chanson trouvée.';
+
+    liste.appendChild(vide);
 
     return;
   }
@@ -470,14 +519,27 @@ function afficher() {
     const div = document.createElement('div');
     div.className = 'chanson';
 
+    // ICON
     const icon = document.createElement('span');
     icon.className = 'music-icon';
     icon.textContent = '♫';
 
-    const nom = document.createElement('span');
-    nom.className = 'song-name';
-    nom.textContent = chanson;
+    // INFORMATIONS
+    const info = document.createElement('div');
+    info.className = 'song-info';
 
+    const nom = document.createElement('div');
+    nom.className = 'song-name';
+    nom.textContent = chanson.nom;
+
+    const categorie = document.createElement('span');
+    categorie.className = 'song-category';
+    categorie.textContent = chanson.categorie;
+
+    info.appendChild(nom);
+    info.appendChild(categorie);
+
+    // BOUTON COPIER
     const copy = document.createElement('button');
     copy.className = 'copy-btn';
     copy.textContent = 'Copier';
@@ -485,7 +547,9 @@ function afficher() {
     copy.addEventListener('click', async () => {
 
       try {
-        await navigator.clipboard.writeText(chanson);
+
+        await navigator.clipboard.writeText(chanson.nom);
+
         copy.textContent = '✓ Copié';
 
         setTimeout(() => {
@@ -493,13 +557,15 @@ function afficher() {
         }, 1500);
 
       } catch (error) {
+
         copy.textContent = 'Erreur';
+
       }
 
     });
 
     div.appendChild(icon);
-    div.appendChild(nom);
+    div.appendChild(info);
     div.appendChild(copy);
 
     liste.appendChild(div);
@@ -508,36 +574,15 @@ function afficher() {
 
 }
 
-// ===================================
-// RECHERCHE INSTANTANEE
-// ===================================
+// ======================================
+// 6. RECHERCHE INSTANTANEE
+// ======================================
 
 recherche.addEventListener('input', afficher);
 
-// ===================================
-// FILTRES PAR CATEGORIE
-// ===================================
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-
-  btn.addEventListener('click', () => {
-
-    document.querySelectorAll('.filter-btn')
-      .forEach(b => b.classList.remove('active'));
-
-    btn.classList.add('active');
-
-    categorieActive = btn.dataset.category;
-
-    afficher();
-
-  });
-
-});
-
-// ===================================
-// TRI A-Z / Z-A
-// ===================================
+// ======================================
+// 7. TRI A-Z / Z-A
+// ======================================
 
 sortBtn.addEventListener('click', () => {
 
@@ -551,9 +596,9 @@ sortBtn.addEventListener('click', () => {
 
 });
 
-// ===================================
-// RETOUR EN HAUT
-// ===================================
+// ======================================
+// 8. RETOUR EN HAUT
+// ======================================
 
 window.addEventListener('scroll', () => {
 
@@ -571,9 +616,9 @@ topBtn.addEventListener('click', () => {
 
 });
 
-// ===================================
-// LANCEMENT
-// ===================================
+// ======================================
+// 9. LANCEMENT
+// ======================================
 
 afficher();
 
