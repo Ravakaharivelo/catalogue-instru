@@ -250,6 +250,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-bottom: 15px;
 }
 
 .selection-item {
@@ -267,6 +268,27 @@ main {
   color: #64748b;
   font-size: 11px;
   margin-top: 3px;
+}
+
+/* CONTACT BOX AO ANATIN'NY SELECTION */
+.selection-contact-box {
+  background: white;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 13px;
+  color: #166534;
+}
+
+.selection-contact-box h4 {
+  font-size: 14px;
+  color: #166534;
+  margin-bottom: 6px;
+}
+
+.selection-contact-box p {
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
 }
 
 .empty {
@@ -516,7 +538,6 @@ main {
   margin-top: 6px;
 }
 
-/* CONTACT BOX AO ANATIN'ILAY MODAL */
 .contact-info-box {
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
@@ -620,9 +641,18 @@ footer {
     <h3>📋 Ma sélection</h3>
     <p class="selection-description">
       Voici les chansons que vous avez choisies.
-      Vous pouvez faire une capture d'écran de cette liste.
+      Vous pouvez faire une capture d'écran de cette liste et l'envoyer via :
     </p>
     <div class="selection-list" id="selectionList"></div>
+
+    <!-- FAMPAHALALANA CONTACT AO AMIN'NY SELECTION -->
+    <div class="selection-contact-box">
+      <h4>📤 Alefaso eto ny Capture na ny Commande-nao :</h4>
+      <p>📞 <b>Contact:</b> 033 43 480 97</p>
+      <p>💬 <b>WhatsApp:</b> 034 87 337 52</p>
+      <p>📘 <b>Page Facebook MP:</b> Instru-Karaoke-Mg</p>
+      <p>✉️ <b>Email:</b> instrukaraokemg@gmail.com</p>
+    </div>
   </div>
 
   <!-- LISTE DES CHANSONS -->
@@ -677,7 +707,6 @@ footer {
       </ul>
     </div>
 
-    <!-- FAMPAHALALANA CONTACT (Misy ny Mailbox koa izao) -->
     <div class="contact-info-box">
       <p><b>📞 Contact:</b> 033 43 480 97</p>
       <p><b>💬 WhatsApp:</b> 034 87 337 52</p>
