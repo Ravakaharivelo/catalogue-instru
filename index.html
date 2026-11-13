@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,6 +22,7 @@ body {
   font-family: Arial, sans-serif;
   background: #f1f4f9;
   color: #1e293b;
+  padding-bottom: 70px; /* Arovan'ny pub bar ambany */
 }
 
 /* HEADER */
@@ -276,22 +276,112 @@ main {
   font-size: 14px;
 }
 
+/* PUB FLASH EN BAS (STICKY ANIMEE) */
+.flash-pub-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
+  z-index: 999;
+  border-top: 2px solid #2563eb;
+  animation: pulsePub 3s infinite alternate;
+}
+
+@keyframes pulsePub {
+  0% { border-top-color: #2563eb; }
+  100% { border-top-color: #16a34a; }
+}
+
+.flash-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.flash-badge {
+  background: #dc2626;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: blinkBadge 1.5s infinite;
+}
+
+@keyframes blinkBadge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.flash-text-container {
+  font-size: 13px;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: 260px;
+}
+
+@media(min-width: 600px) {
+  .flash-text-container {
+    width: 420px;
+  }
+}
+
+.flash-text-slider {
+  display: inline-block;
+  animation: slideText 10s linear infinite;
+}
+
+@keyframes slideText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.flash-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.flash-btn:hover {
+  background: #15803d;
+}
+
 /* TOP BUTTON */
 #topBtn {
   position: fixed;
-  bottom: 22px;
+  bottom: 65px; /* Ambonkely an'ilay pub bar */
   right: 20px;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
   background: #1d4ed8;
   color: white;
-  font-size: 21px;
+  font-size: 18px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,.2);
   display: none;
-  z-index: 10;
+  z-index: 1000;
 }
 
 #topBtn:hover {
@@ -308,35 +398,28 @@ footer {
 
 /* MOBILE */
 @media(max-width: 600px) {
-
   header {
     padding: 30px 15px;
   }
-
   header h1 {
     font-size: 20px;
   }
-
   main {
     margin: 14px 10px;
     padding: 17px;
   }
-
   .tools {
     align-items: stretch;
   }
-
   .counter,
   .selected-counter,
   .sort-btn {
     text-align: center;
     width: 100%;
   }
-
   .song-name {
     font-size: 13px;
   }
-
   .selection-panel {
     padding: 12px;
   }
@@ -412,6 +495,22 @@ footer {
 <footer>
   © Instru-Karaoke-Mg | Catalogue musical
 </footer>
+
+<!-- PUB FLASH EN BAS DE L'ECRAN (STICKY MISERANA) -->
+<div class="flash-pub-bar">
+  <div class="flash-content">
+    <span class="flash-badge">Vaovao</span>
+    <div class="flash-text-container">
+      <div class="flash-text-slider">
+        💾 Misy Clé USB vaovao koa ato tsara kalitao! Afaka vidinao mitokana na ampidirinao ny hira voafidinao. 
+      </div>
+    </div>
+  </div>
+  <!-- Ovay ho rohy WhatsApp na Messenger tianao handefasana ny mpanjifa -->
+  <a href="https://wa.me/261340000000?text=Salama%2C%20mbola%20misy%20clé%20USB%20ve%20?" target="_blank" class="flash-btn">
+    Hividy USB ↗
+  </a>
+</div>
 
 <button id="topBtn" title="Retour en haut">
   ↑
@@ -527,7 +626,6 @@ const filters = document.getElementById('filters');
 let categorieActive = 'Toutes';
 let ordreAZ = true;
 
-// Mitahiry ireo hira voafidy
 const chansonsSelectionnees = new Set();
 
 // ======================================
@@ -535,12 +633,10 @@ const chansonsSelectionnees = new Set();
 // ======================================
 
 function normaliser(texte) {
-
   return texte
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
-
 }
 
 // ======================================
@@ -555,50 +651,32 @@ const categoriesDisponibles = [
   'Variétés Évangéliques'
 ];
 
-// Bouton Toutes
 const btnToutes = document.createElement('button');
-
 btnToutes.className = 'filter-btn active';
 btnToutes.textContent = 'Toutes';
 
 btnToutes.addEventListener('click', () => {
-
   categorieActive = 'Toutes';
-
-  document.querySelectorAll('.filter-btn')
-    .forEach(b => b.classList.remove('active'));
-
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btnToutes.classList.add('active');
-
   afficher();
-
 });
 
 filters.appendChild(btnToutes);
 
-// Boutons catégories
 categoriesDisponibles.forEach(categorie => {
-
   const btn = document.createElement('button');
-
   btn.className = 'filter-btn';
   btn.textContent = categorie;
 
   btn.addEventListener('click', () => {
-
     categorieActive = categorie;
-
-    document.querySelectorAll('.filter-btn')
-      .forEach(b => b.classList.remove('active'));
-
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     afficher();
-
   });
 
   filters.appendChild(btn);
-
 });
 
 // ======================================
@@ -606,33 +684,23 @@ categoriesDisponibles.forEach(categorie => {
 // ======================================
 
 function afficherSelection() {
-
   const nombre = chansonsSelectionnees.size;
-
-  selectedCounter.textContent =
-    `✓ ${nombre} hira voafidy`;
-
+  selectedCounter.textContent = `✓ ${nombre} hira voafidy`;
   selectionList.innerHTML = '';
 
   if (nombre === 0) {
-
     selectionPanel.style.display = 'none';
-
     return;
-
   }
 
   selectionPanel.style.display = 'block';
 
-  // Afficher les chansons sélectionnées
   chansons.forEach(chanson => {
-
     if (!chansonsSelectionnees.has(chanson.nom)) {
       return;
     }
 
     const item = document.createElement('div');
-
     item.className = 'selection-item';
 
     const nom = document.createElement('div');
@@ -643,11 +711,8 @@ function afficherSelection() {
 
     item.appendChild(nom);
     item.appendChild(categorie);
-
     selectionList.appendChild(item);
-
   });
-
 }
 
 // ======================================
@@ -655,27 +720,16 @@ function afficherSelection() {
 // ======================================
 
 function afficher() {
-
   const q = normaliser(recherche.value.trim());
 
   let resultats = chansons.filter(chanson => {
-
-    const rechercheOK =
-      normaliser(chanson.nom).includes(q);
-
-    const categorieOK =
-      categorieActive === 'Toutes' ||
-      chanson.categorie === categorieActive;
-
+    const rechercheOK = normaliser(chanson.nom).includes(q);
+    const categorieOK = categorieActive === 'Toutes' || chanson.categorie === categorieActive;
     return rechercheOK && categorieOK;
-
   });
 
-  // TRI ALPHABETIQUE
   resultats.sort((a, b) =>
-    a.nom.localeCompare(b.nom, 'fr', {
-      sensitivity: 'base'
-    })
+    a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' })
   );
 
   if (!ordreAZ) {
@@ -683,80 +737,51 @@ function afficher() {
   }
 
   liste.innerHTML = '';
-
-  counter.textContent =
-    `${resultats.length} chanson(s) trouvée(s) / ${chansons.length} au total`;
+  counter.textContent = `${resultats.length} chanson(s) trouvée(s) / ${chansons.length} au total`;
 
   if (resultats.length === 0) {
-
     const vide = document.createElement('div');
-
     vide.className = 'empty';
     vide.textContent = '🎵 Aucune chanson trouvée.';
-
     liste.appendChild(vide);
-
     return;
-
   }
 
   resultats.forEach(chanson => {
-
     const div = document.createElement('div');
     div.className = 'chanson';
 
-    // ICON MUSIQUE
     const icon = document.createElement('span');
-
     icon.className = 'music-icon';
     icon.textContent = '♫';
 
-    // INFORMATIONS
     const info = document.createElement('div');
-
     info.className = 'song-info';
 
     const nom = document.createElement('div');
-
     nom.className = 'song-name';
     nom.textContent = chanson.nom;
 
     const categorie = document.createElement('span');
-
     categorie.className = 'song-category';
     categorie.textContent = chanson.categorie;
 
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // CHECKBOX DE SELECTION
     const checkbox = document.createElement('input');
-
     checkbox.type = 'checkbox';
     checkbox.className = 'song-checkbox';
-
-    checkbox.checked =
-      chansonsSelectionnees.has(chanson.nom);
-
-    checkbox.setAttribute(
-      'aria-label',
-      'Sélectionner ' + chanson.nom
-    );
+    checkbox.checked = chansonsSelectionnees.has(chanson.nom);
+    checkbox.setAttribute('aria-label', 'Sélectionner ' + chanson.nom);
 
     checkbox.addEventListener('change', () => {
-
       if (checkbox.checked) {
-
         chansonsSelectionnees.add(chanson.nom);
-
       } else {
-
         chansonsSelectionnees.delete(chanson.nom);
-
       }
-
       afficherSelection();
-
     });
 
     div.appendChild(icon);
@@ -764,9 +789,7 @@ function afficher() {
     div.appendChild(checkbox);
 
     liste.appendChild(div);
-
   });
-
 }
 
 // ======================================
@@ -780,15 +803,9 @@ recherche.addEventListener('input', afficher);
 // ======================================
 
 sortBtn.addEventListener('click', () => {
-
   ordreAZ = !ordreAZ;
-
-  sortBtn.textContent = ordreAZ
-    ? '↕ Tri : A – Z'
-    : '↕ Tri : Z – A';
-
+  sortBtn.textContent = ordreAZ ? '↕ Tri : A – Z' : '↕ Tri : Z – A';
   afficher();
-
 });
 
 // ======================================
@@ -796,19 +813,14 @@ sortBtn.addEventListener('click', () => {
 // ======================================
 
 window.addEventListener('scroll', () => {
-
-  topBtn.style.display =
-    window.scrollY > 300 ? 'block' : 'none';
-
+  topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
 });
 
 topBtn.addEventListener('click', () => {
-
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
   });
-
 });
 
 // ======================================
