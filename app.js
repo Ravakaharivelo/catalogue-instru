@@ -205,6 +205,19 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
+    // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY PLAYER AUDIO
+    if (chanson.extrait && chanson.extrait.trim() !== '') {
+      const audioPlayer = document.createElement('audio');
+      audioPlayer.controls = true;
+      audioPlayer.preload = 'none';
+      audioPlayer.src = chanson.extrait;
+      audioPlayer.style.width = '100%';
+      audioPlayer.style.height = '32px';
+      audioPlayer.style.marginTop = '8px';
+      audioPlayer.style.outline = 'none';
+      info.appendChild(audioPlayer);
+    }
+
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'song-checkbox';
