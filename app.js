@@ -231,7 +231,7 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY VIDEO TAG
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY IFRAME PREVIEW
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
@@ -241,11 +241,11 @@ function afficher() {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
           extraitModalSongTitle.textContent = chanson.nom;
-          // Ampiasaina ny tag video miaraka amin'ny direct link mba handeha tsara amin'ny finday sy PC
+          // Ampiasaina ny Google Drive Preview iframe mba handeha tsara ny vidéo sy feo na amin'ny finday na PC
           extraitPlayerContainer.innerHTML = `
-            <video src="https://drive.google.com/uc?export=download&id=${match[1]}" 
-                   style="width: 100%; max-height: 350px; border-radius: 8px; background: #000;" 
-                   controls autoplay playsinline></video>
+            <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
+                    style="width: 100%; height: 320px; border: none; border-radius: 8px; background: #000;" 
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
           `;
           extraitModal.style.display = 'flex';
         }
