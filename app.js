@@ -231,7 +231,7 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY HTML5 VIDEO PLAYER MADIO
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY RESPONSIVE IFRAME
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
@@ -241,12 +241,10 @@ function afficher() {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
           extraitModalSongTitle.textContent = chanson.nom;
-          // Ampiasaina ny rafitra wrapper miaraka amin'ny tag video teratany mba hiala amin'ny iframe overlay
           extraitPlayerContainer.innerHTML = `
-            <div style="width: 100%; background: #000; border-radius: 10px; overflow: hidden; display: flex; justify-content: center; align-items: center;">
-              <video src="https://drive.google.com/uc?export=download&id=${match[1]}" 
-                     style="width: 100%; max-height: 320px; display: block; outline: none;" 
-                     controls playsinline preload="metadata"></video>
+            <div>
+              <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
+                      allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           `;
           extraitModal.style.display = 'flex';
