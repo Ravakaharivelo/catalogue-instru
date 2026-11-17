@@ -243,7 +243,6 @@ function afficher() {
           extraitModalSongTitle.textContent = chanson.nom;
           extraitPlayerContainer.innerHTML = `
             <iframe src="https://drive.google.com/file/d/${match[1]}/preview?autoplay=1" 
-                    style="width: 100%; height: 380px; border: none; border-radius: 8px; background: #000;" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen></iframe>
           `;
