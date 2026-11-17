@@ -1849,7 +1849,8 @@ const chansons = [
   },
    {
     nom: "Andriamanitra ô, miantso anao aho, te hihaona aminao (Katolika)",
-    categorie: "Katolika"
+    categorie: "Katolika" ,
+      extrait:"https://drive.google.com/file/d/1ycNEHnCiR3RBxpy8VIjVD9bVSxJIFffn/view?usp=drive_link"
   },
 
   {
@@ -1859,7 +1860,8 @@ const chansons = [
 
   {
     nom: "Dia ilay fitia - karaoké",
-    categorie: "Katolika"
+    categorie: "Katolika",
+     extrait : "https://drive.google.com/file/d/1RHl_v_Xuh5vd3mOzA-yYi6JUSBNcSjBX/view?usp=drive_link"
   },
 
   {
@@ -1889,7 +1891,8 @@ const chansons = [
 
   {
     nom: "Fo torotoro (Katolika)",
-    categorie: "Katolika"
+    categorie: "Katolika" ,
+     extrait:"https://drive.google.com/file/d/19yu2DeacKVRbOGWBKVPf6htdVCqNSELh/view?usp=drive_link"
   },
 
   {
@@ -1939,7 +1942,8 @@ const chansons = [
 
   {
     nom: "Ventson-kira - Iaveh no Mpiandry ahy (Katolika)",
-    categorie: "Katolika"
+    categorie: "Katolika",
+     extrait:"https://drive.google.com/file/d/1kXZ1fMg57Q4a_-EZnSHocjz-St6rPcQn/view?usp=drive_link"
   },
 
   {
