@@ -1210,7 +1210,8 @@ const chansons = [
   },
   {
     nom: "Aina no fetra ry Tompo Mpanjaka (Fifohazana)",
-    categorie: "Fifohazana"
+    categorie: "Fifohazana",
+    extrait: "https://drive.google.com/file/d/1KBA7wkC0kO2M90GyIy0CxABeao7SzhOa/view?usp=drive_link"
   },
 
   {
