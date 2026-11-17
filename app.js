@@ -241,10 +241,10 @@ function afficher() {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
           extraitModalSongTitle.textContent = chanson.nom;
-          // Ampiasaina ny Google Drive Preview iframe mba handeha tsara ny vidéo sy feo na amin'ny finday na PC
+          // Natao 380px ny haavony eto mba hanana toerana malalaka tsara ny lecteur sy ny control ao amin'ny Android
           extraitPlayerContainer.innerHTML = `
             <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
-                    style="width: 100%; height: 320px; border: none; border-radius: 8px; background: #000;" 
+                    style="width: 100%; height: 380px; border: none; border-radius: 8px; background: #000;" 
                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
           `;
           extraitModal.style.display = 'flex';
