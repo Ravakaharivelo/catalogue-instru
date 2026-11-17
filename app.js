@@ -45,6 +45,32 @@ lightboxModal.addEventListener('click', (e) => {
 
 
 // ======================================
+// 1. GESTION DU MODAL EXTRAIT (SANTIONAM-PEO)
+// ======================================
+
+const extraitModal = document.getElementById('extraitModal');
+const closeExtraitModal = document.getElementById('closeExtraitModal');
+const extraitPlayerContainer = document.getElementById('extraitPlayerContainer');
+const extraitModalSongTitle = document.getElementById('extraitModalSongTitle');
+
+if (closeExtraitModal) {
+  closeExtraitModal.addEventListener('click', () => {
+    extraitModal.style.display = 'none';
+    extraitPlayerContainer.innerHTML = ''; // Mba hamonoana ilay feo rehefa mihidy
+  });
+}
+
+if (extraitModal) {
+  window.addEventListener('click', (e) => {
+    if (e.target === extraitModal) {
+      extraitModal.style.display = 'none';
+      extraitPlayerContainer.innerHTML = '';
+    }
+  });
+}
+
+
+// ======================================
 // 2. INITIALISATION
 // ======================================
 
@@ -205,18 +231,26 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-   // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY MINI-PLAYER TSARA BIKA
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL FIHAINOANA
     if (chanson.extrait && chanson.extrait.trim() !== '') {
-      const extraitLink = document.createElement('a');
-      extraitLink.href = chanson.extrait;
-      extraitLink.target = '_blank';
-      extraitLink.className = 'extrait-box';
-      
-      extraitLink.innerHTML = `
-        <span class="extrait-icon">▶</span>
-        <span class="extrait-text">Henoy ny santionany</span>
-      `;
-      info.appendChild(extraitLink);
+      const btnExtrait = document.createElement('button');
+      btnExtrait.className = 'extrait-btn';
+      btnExtrait.innerHTML = '▶ Henoy ny santionany';
+
+      btnExtrait.addEventListener('click', () => {
+        const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) {
+          extraitModalSongTitle.textContent = chanson.nom;
+          extraitPlayerContainer.innerHTML = `
+            <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
+                    style="width: 100%; height: 80px; border: none; border-radius: 8px;" 
+                    allow="autoplay"></iframe>
+          `;
+          extraitModal.style.display = 'flex';
+        }
+      });
+
+      info.appendChild(btnExtrait);
     }
 
     const checkbox = document.createElement('input');
