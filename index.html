@@ -345,60 +345,75 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   inset: 0;
   width: 100%;
   height: 100%;
-  background: rgba(5,12,28,.65);
-  backdrop-filter: blur(4px);
+  background: rgba(5,12,28,.75);
+  backdrop-filter: blur(5px);
   z-index: 4000;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 12px;
 }
 .extrait-modal-content {
-  background: white;
-  width: 95%;
-  max-width: 500px;
+  background: #111827;
+  width: 100%;
+  max-width: 580px;
   border-radius: 16px;
-  padding: 16px 16px 20px 16px;
+  padding: 14px 14px 18px 14px;
   position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,.3);
+  box-shadow: 0 25px 60px rgba(0,0,0,.5);
   text-align: center;
+  border: 1px solid rgba(255,255,255,.1);
 }
 .extrait-modal-title {
   font-size: 14px;
-  font-weight: 800;
-  color: var(--navy);
+  font-weight: 700;
+  color: #f3f4f6;
   margin-bottom: 10px;
-  padding-right: 25px;
+  padding-right: 30px;
   overflow-wrap: anywhere;
+  text-align: left;
 }
 .extrait-close-btn {
   position: absolute;
   top: 10px;
   right: 12px;
-  background: #f0f3f8;
+  background: rgba(255,255,255,.1);
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  color: #536078;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: .2s;
 }
 .extrait-close-btn:hover {
-  background: #e2e8f0;
-  color: var(--navy);
+  background: rgba(255,255,255,.25);
+}
+
+/* FANDAMINANA NY IFRAME HO MADIO SY TSY MISY INTERFERENCE */
+#extraitPlayerContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
 }
 
 #extraitPlayerContainer iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 380px;
+  height: 100%;
   border: none;
-  border-radius: 8px;
   background: #000;
-  display: block;
 }
 
 @media (max-width: 600px) {
@@ -419,11 +434,9 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   .usb-card img { height: 125px; }
   
   .extrait-modal-content {
-    max-width: 98%;
-    padding: 12px 10px 16px 10px;
-  }
-  #extraitPlayerContainer iframe {
-    height: 340px;
+    max-width: 100%;
+    padding: 10px 8px 14px 8px;
+    border-radius: 12px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -530,7 +543,6 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
     <button class="modal-close" id="closeModalBtn">&times;</button>
     <div class="modal-title">💾 Clé USB Kingston DataTraveler Exodia</div>
     
-    <!-- Sary roa mitovy habe tsara -->
     <div class="usb-gallery">
       <div class="usb-card">
         <img src="usb16.jpg" alt="Clé USB 16GB" class="zoomable-img">
