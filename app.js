@@ -205,14 +205,18 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-   // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY BOKOTRA MIROHY AMIN'NY DRIVE
+   // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY MINI-PLAYER TSARA BIKA
     if (chanson.extrait && chanson.extrait.trim() !== '') {
-      const btnExtrait = document.createElement('a');
-      btnExtrait.href = chanson.extrait;
-      btnExtrait.target = '_blank';
-      btnExtrait.className = 'extrait-btn';
-      btnExtrait.innerHTML = '▶ Henoy ny santionany';
-      info.appendChild(btnExtrait);
+      const extraitLink = document.createElement('a');
+      extraitLink.href = chanson.extrait;
+      extraitLink.target = '_blank';
+      extraitLink.className = 'extrait-box';
+      
+      extraitLink.innerHTML = `
+        <span class="extrait-icon">▶</span>
+        <span class="extrait-text">Henoy ny santionany</span>
+      `;
+      info.appendChild(extraitLink);
     }
 
     const checkbox = document.createElement('input');
