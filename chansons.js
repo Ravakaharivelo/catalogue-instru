@@ -1565,27 +1565,32 @@ const chansons = [
   },
   {
     nom: "1. Hira faneva 30-taona FJKM (FIHIRANA FANAMPINY 1)",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Fihirana Fanampiny",
+     extrait:"https://drive.google.com/file/d/10VjxGbFFzEKs9XT1ZhheSXJgM_Bho6G5/view?usp=drive_link"
   },
 
   {
     nom: "2. He, manolo-tena (Fihirana fanampiny 2)",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Fihirana Fanampiny",
+     extrait:"https://drive.google.com/file/d/1Cc99SrHKGGXgzFwHFlUWiLn5AFQ9YFcD/view?usp=drive_link"
   },
 
   {
     nom: "3. FF3.Jeso Vato fehizoro - Fihirana Fanampiny",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Fihirana Fanampiny",
+   extrait:"https://drive.google.com/file/d/1dJc__GCaYtTigx6LV3wEZMKyG9rO7tpR/view?usp=drive_link"
   },
 
   {
     nom: "4. Ry Fanahy ô (Fihirana fanampiny 4)",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Fihirana Fanampiny",
+     extrait:"https://drive.google.com/file/d/19vwoQCFflo2HXRzbclOW0y-qQm8A5f50/view?usp=drive_link"
   },
 
   {
     nom: "5. Izaho no fananganana ny maty (Fihirana fanampiny 5)",
-    categorie: "Fihirana Fanampiny"
+    categorie: "Fihirana Fanampiny",
+     extrait:"https://drive.google.com/file/d/18MGWDkv65kDE0NOwdF233QE48_81ouc_/view?usp=drive_link"
   },
 
   {
