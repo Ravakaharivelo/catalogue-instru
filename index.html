@@ -79,7 +79,30 @@ main {
   box-shadow: var(--shadow);
 }
 
-/* STYLES VAOVAO HO AN'NY ACCUEIL / SANTIONANY */
+/* STYLES HO AN'NY BOKOTRA SY NY MENU SANTIONANY */
+.accueil-toggle-wrapper {
+  margin-bottom: 20px;
+}
+.accueil-toggle-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #182b52, #315ee8);
+  color: white;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(49,94,232,.18);
+  transition: .2s ease;
+}
+.accueil-toggle-btn:hover {
+  opacity: .95;
+  transform: translateY(-1px);
+}
 .accueil-section {
   background: linear-gradient(135deg, #f0f4ff, #f8faff);
   border: 1.5px solid #d2e0ff;
@@ -87,7 +110,10 @@ main {
   padding: 20px;
   margin-bottom: 24px;
   box-shadow: 0 6px 20px rgba(49,94,232,.05);
+  animation: fadeIn .25s ease;
 }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
 .accueil-header-badge {
   display: inline-block;
   background: var(--blue);
@@ -407,16 +433,23 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
 
 <main>
 
-  <!-- SECTION ACCUEIL / SANTIONAM-PEO (EXTRAITS) -->
-  <div class="accueil-section">
+  <!-- BOKOTRA MANOKATRA SY MAMPIAFINA NY SANTIONAN-PEO -->
+  <div class="accueil-toggle-wrapper">
+    <button id="toggleAccueilBtn" class="accueil-toggle-btn">
+      <span>🎧 Henoy ny santionam-peo (Extraits Audio)</span>
+      <span id="toggleIcon">▼</span>
+    </button>
+  </div>
+
+  <!-- ILAY SECTION MIAFINA AMIN'NY VOALOHANY -->
+  <div class="accueil-section" id="accueilSection" style="display: none;">
     <div class="accueil-header-badge">⭐ Hira Nasongadina</div>
-    <h2>Henoy ny santionam-peo (Extraits)</h2>
+    <h2>Santionam-peo</h2>
     <p class="subtitle" style="margin-top: 4px; margin-bottom: 14px;">
       Ireto misy santionany vitsivitsy ahafahanao mitsapa avy hatrany ny kalitaon'ny playback alohan'ny hisafidianana.
     </p>
 
     <div class="audio-cards-container">
-      <!-- Santionany 1 -->
       <div class="audio-card-item">
         <div class="audio-card-info">
           <span class="audio-song-title">🎶 Hira Evangélique (Santionany 1)</span>
@@ -428,7 +461,6 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
         </audio>
       </div>
 
-      <!-- Santionany 2 -->
       <div class="audio-card-item">
         <div class="audio-card-info">
           <span class="audio-song-title">🎵 Hira Variété (Santionany 2)</span>
@@ -441,8 +473,6 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
       </div>
     </div>
   </div>
-
-  <hr style="border: none; border-top: 1px solid var(--line); margin: 24px 0;">
 
   <div class="section-title">📚 Notre catalogue</div>
 
@@ -486,7 +516,7 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
     </p>
     <div class="selection-list" id="selectionList"></div>
 
-    <!-- FAMPAHALALANA CONTACT AO AMIN'NY SELECTION -->
+    <!-- FAMPAHALALANA CONTACT -->
     <div class="selection-contact-box">
       <h4>📤 Afaka alefa amin'ireto ny Capture na ny Commande-nao :</h4>
       <p>📞 <b>Contact:</b> 033 43 480 97</p>
@@ -520,13 +550,12 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   </button>
 </div>
 
-<!-- BOATY KELY (MODAL) MITONDRA NY SARY SY MOMBA NY USB -->
+<!-- BOATY KELY (MODAL) USB -->
 <div class="modal-overlay" id="usbModal">
   <div class="modal-content">
     <button class="modal-close" id="closeModalBtn">&times;</button>
     <div class="modal-title">💾 Clé USB Kingston DataTraveler Exodia</div>
     
-    <!-- Sary roa mitovy habe tsara -->
     <div class="usb-gallery">
       <div class="usb-card">
         <img src="usb16.jpg" alt="Clé USB 16GB" class="zoomable-img">
@@ -557,7 +586,7 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   </div>
 </div>
 
-<!-- LIGHTBOX (SARY LEHIBE BE MISEHO) -->
+<!-- LIGHTBOX -->
 <div class="lightbox-overlay" id="lightboxModal">
   <div class="lightbox-content">
     <button class="lightbox-close" id="closeLightboxBtn">&times;</button>
@@ -568,6 +597,27 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
 <button id="topBtn" title="Retour en haut">
   ↑
 </button>
+
+<!-- JAVASCRIPT HO AN'ILAY BOKOTRA SANTIONAM-PEO -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const toggleBtn = document.getElementById("toggleAccueilBtn");
+    const accueilSection = document.getElementById("accueilSection");
+    const toggleIcon = document.getElementById("toggleIcon");
+
+    if (toggleBtn && accueilSection) {
+      toggleBtn.addEventListener("click", function() {
+        if (accueilSection.style.display === "none") {
+          accueilSection.style.display = "block";
+          toggleIcon.textContent = "▲";
+        } else {
+          accueilSection.style.display = "none";
+          toggleIcon.textContent = "▼";
+        }
+      });
+    }
+  });
+</script>
 
 <script src="chansons.js"></script>
 <script src="app.js"></script>
