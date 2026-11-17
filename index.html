@@ -381,15 +381,26 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   color: var(--navy);
 }
 
-/* Fanitsiana ny iframe mba ho malalaka tsara ka tsy hanakona ny control ao amin'ny Android */
-#extraitPlayerContainer iframe {
+/* Rafitra responsive madio ho an'ny iframe mba tsy ho maloka na hifandona */
+#extraitPlayerContainer div {
+  position: relative;
   width: 100%;
-  height: 380px; /* Natao avo tsara mba hisian'ny toerana malalaka amin'ny finday */
-  border: none;
-  border-radius: 10px;
+  padding-bottom: 56.25%;
+  height: 0;
   background: #000;
-  display: block;
+  border-radius: 10px;
+  overflow: hidden;
   margin-top: 5px;
+}
+
+#extraitPlayerContainer iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
 }
 
 @media (max-width: 600px) {
@@ -412,9 +423,6 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   .extrait-modal-content {
     max-width: 98%;
     padding: 12px 10px 16px 10px;
-  }
-  #extraitPlayerContainer iframe {
-    height: 340px; /* Atao somary avo tsara ihany koa amin'ny finday mba tsy hifandona ny play/pause */
   }
 }
 @media (prefers-reduced-motion: reduce) {
