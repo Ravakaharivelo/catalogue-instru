@@ -205,21 +205,14 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY GOOGLE DRIVE PREVIEW PLAYER
+   // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY BOKOTRA MIROHY AMIN'NY DRIVE
     if (chanson.extrait && chanson.extrait.trim() !== '') {
-      const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) {
-        const iframePlayer = document.createElement('iframe');
-        iframePlayer.src = `https://drive.google.com/file/d/${match[1]}/preview`;
-        iframePlayer.style.width = '100%';
-        iframePlayer.style.height = '65px';
-        iframePlayer.style.border = '1px solid #e1e8f5';
-        iframePlayer.style.borderRadius = '10px';
-        iframePlayer.style.marginTop = '10px';
-        iframePlayer.style.backgroundColor = '#f8faff';
-        iframePlayer.allow = 'autoplay';
-        info.appendChild(iframePlayer);
-      }
+      const btnExtrait = document.createElement('a');
+      btnExtrait.href = chanson.extrait;
+      btnExtrait.target = '_blank';
+      btnExtrait.className = 'extrait-btn';
+      btnExtrait.innerHTML = '▶ Henoy ny santionany';
+      info.appendChild(btnExtrait);
     }
 
     const checkbox = document.createElement('input');
