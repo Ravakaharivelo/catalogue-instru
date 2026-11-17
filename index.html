@@ -381,26 +381,14 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   color: var(--navy);
 }
 
-/* Rafitra responsive madio ho an'ny iframe */
-#extraitPlayerContainer div {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%;
-  height: 0;
-  background: #000;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 5px;
-}
-
+/* Fandaminana ny iframe ho an'ny Extrait */
 #extraitPlayerContainer iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 380px;
   border: none;
+  border-radius: 8px;
   background: #000;
+  display: block;
 }
 
 @media (max-width: 600px) {
@@ -423,6 +411,9 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   .extrait-modal-content {
     max-width: 98%;
     padding: 12px 10px 16px 10px;
+  }
+  #extraitPlayerContainer iframe {
+    height: 340px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
