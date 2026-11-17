@@ -231,7 +231,7 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY IFRAME PREVIEW (Miaraka amin'ny alalana ho an'ny finday)
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY IFRAME PREVIEW
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
