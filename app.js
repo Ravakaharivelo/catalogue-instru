@@ -45,7 +45,7 @@ lightboxModal.addEventListener('click', (e) => {
 
 
 // ======================================
-// 1. GESTION DU MODAL EXTRAIT (SANTIONAM-PEO)
+// 1. GESTION DU MODAL EXTRAIT (SANTIONAM-PEO / VIDEO)
 // ======================================
 
 const extraitModal = document.getElementById('extraitModal');
@@ -56,7 +56,7 @@ const extraitModalSongTitle = document.getElementById('extraitModalSongTitle');
 if (closeExtraitModal) {
   closeExtraitModal.addEventListener('click', () => {
     extraitModal.style.display = 'none';
-    extraitPlayerContainer.innerHTML = ''; // Mba hamonoana ilay feo rehefa mihidy
+    extraitPlayerContainer.innerHTML = ''; // Mba hamonoana ilay vidéo/feo rehefa mihidy
   });
 }
 
@@ -231,20 +231,21 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT (NA VIDEO AZA) DIA MAMORONA BOKOTRA MANOKATRA MODAL
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY VIDEO TAG
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
-      btnExtrait.innerHTML = '▶ Henoy ny santionany'; // (na "Jereo ny vidéo" raha tianao)
+      btnExtrait.innerHTML = '▶ Henoy ny santionany';
 
       btnExtrait.addEventListener('click', () => {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
           extraitModalSongTitle.textContent = chanson.nom;
+          // Ampiasaina ny tag video miaraka amin'ny direct link mba handeha tsara amin'ny finday sy PC
           extraitPlayerContainer.innerHTML = `
-            <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
-                    style="width: 100%; height: 320px; border: none; border-radius: 8px;" 
-                    allow="autoplay" allowfullscreen></iframe>
+            <video src="https://drive.google.com/uc?export=download&id=${match[1]}" 
+                   style="width: 100%; max-height: 350px; border-radius: 8px; background: #000;" 
+                   controls autoplay playsinline></video>
           `;
           extraitModal.style.display = 'flex';
         }
