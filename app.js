@@ -205,17 +205,18 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT (GOOGLE DRIVE) DIA AMPIDIRINA ILAY IFRAME PREVIEW PLAYER
+    // RAHA MISY EXTRAIT DIA AMPIDIRINA ILAY GOOGLE DRIVE PREVIEW PLAYER
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
       if (match && match[1]) {
         const iframePlayer = document.createElement('iframe');
         iframePlayer.src = `https://drive.google.com/file/d/${match[1]}/preview`;
         iframePlayer.style.width = '100%';
-        iframePlayer.style.height = '60px';
-        iframePlayer.style.border = 'none';
-        iframePlayer.style.borderRadius = '8px';
-        iframePlayer.style.marginTop = '8px';
+        iframePlayer.style.height = '65px';
+        iframePlayer.style.border = '1px solid #e1e8f5';
+        iframePlayer.style.borderRadius = '10px';
+        iframePlayer.style.marginTop = '10px';
+        iframePlayer.style.backgroundColor = '#f8faff';
         iframePlayer.allow = 'autoplay';
         info.appendChild(iframePlayer);
       }
