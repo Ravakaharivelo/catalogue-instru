@@ -10,7 +10,7 @@ const chansons = [
    {
     nom: "1. Andriananahary masina indrindra (FFPM 1)",
     categorie: "FFPM",
-    extrait: "https://drive.google.com/file/d/1Z4ekGlVgxANY1VMREQuO_7458NhxShD3/view?usp=drive_link" // Misy feo
+    extrait: "https://drive.google.com/uc?export=download&id=1Z4ekGlVgxANY1VMREQuO_7458NhxShD3"
   },
 
   {
