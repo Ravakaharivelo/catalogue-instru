@@ -45,7 +45,7 @@ lightboxModal.addEventListener('click', (e) => {
 
 
 // ======================================
-// 1. GESTION DU MODAL EXTRAIT (SANTIONAM-PEO / VIDEO)
+// 1. GESTION DU MODAL EXTRAIT (HIRA FENO)
 // ======================================
 
 const extraitModal = document.getElementById('extraitModal');
@@ -234,7 +234,8 @@ function afficher() {
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
-      btnExtrait.innerHTML = '▶ Henoy ny santionany';
+      // Novaina ho hira feno ny soratra eo amin'ny bokotra
+      btnExtrait.innerHTML = '▶ Henoy sy jereo ny hira feno';
 
       btnExtrait.addEventListener('click', () => {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
