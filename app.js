@@ -231,7 +231,7 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY RESPONSIVE IFRAME PREVIEW
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY HTML5 VIDEO PLAYER
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
@@ -241,13 +241,11 @@ function afficher() {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
           extraitModalSongTitle.textContent = chanson.nom;
-          // Ampiasaina ilay rafitra responsive 16:9 mba hipetraka tsara sy hifanaraka amin'ny sakan'ny finday Android rehetra
+          // Ampiasaina ny HTML5 video player mivantana mba tsy hisian'ny overlay an'ny Google Drive
           extraitPlayerContainer.innerHTML = `
-            <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 8px; overflow: hidden;">
-              <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
-                      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                      allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
+            <video src="https://drive.google.com/uc?export=download&id=${match[1]}" 
+                   style="width: 100%; max-height: 300px; border-radius: 8px; background: #000; outline: none;" 
+                   controls playsinline preload="metadata"></video>
           `;
           extraitModal.style.display = 'flex';
         }
