@@ -231,11 +231,11 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL FIHAINOANA
+    // RAHA MISY EXTRAIT (NA VIDEO AZA) DIA MAMORONA BOKOTRA MANOKATRA MODAL
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
-      btnExtrait.innerHTML = '▶ Henoy ny santionany';
+      btnExtrait.innerHTML = '▶ Henoy ny santionany'; // (na "Jereo ny vidéo" raha tianao)
 
       btnExtrait.addEventListener('click', () => {
         const match = chanson.extrait.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
@@ -243,8 +243,8 @@ function afficher() {
           extraitModalSongTitle.textContent = chanson.nom;
           extraitPlayerContainer.innerHTML = `
             <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
-                    style="width: 100%; height: 80px; border: none; border-radius: 8px;" 
-                    allow="autoplay"></iframe>
+                    style="width: 100%; height: 320px; border: none; border-radius: 8px;" 
+                    allow="autoplay" allowfullscreen></iframe>
           `;
           extraitModal.style.display = 'flex';
         }
