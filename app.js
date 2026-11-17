@@ -231,7 +231,7 @@ function afficher() {
     info.appendChild(nom);
     info.appendChild(categorie);
 
-    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY IFRAME PREVIEW (Nandeha tamin'ny version teo aloha)
+    // RAHA MISY EXTRAIT DIA MAMORONA BOKOTRA MANOKATRA MODAL MIARAKA AMIN'NY IFRAME PREVIEW (Miaraka amin'ny alalana ho an'ny finday)
     if (chanson.extrait && chanson.extrait.trim() !== '') {
       const btnExtrait = document.createElement('button');
       btnExtrait.className = 'extrait-btn';
@@ -244,7 +244,8 @@ function afficher() {
           extraitPlayerContainer.innerHTML = `
             <iframe src="https://drive.google.com/file/d/${match[1]}/preview" 
                     style="width: 100%; height: 380px; border: none; border-radius: 8px; background: #000;" 
-                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
           `;
           extraitModal.style.display = 'flex';
         }
