@@ -343,10 +343,10 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
 }
 .extrait-modal-content {
   background: white;
-  width: 100%;
-  max-width: 600px; /* Natao lehibe kely kokoa mba handraisana ny vidéo */
+  width: 92%;
+  max-width: 480px;
   border-radius: 16px;
-  padding: 20px;
+  padding: 16px 16px 20px 16px;
   position: relative;
   box-shadow: 0 20px 50px rgba(0,0,0,.3);
   text-align: center;
@@ -355,7 +355,7 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   font-size: 15px;
   font-weight: 800;
   color: var(--navy);
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   padding-right: 25px;
   overflow-wrap: anywhere;
 }
@@ -381,6 +381,17 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   color: var(--navy);
 }
 
+/* Fanitsiana ny iframe mba hifanaraka tsara amin'ny finday sy PC */
+#extraitPlayerContainer iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+  border-radius: 10px;
+  background: #000;
+  display: block;
+  margin-top: 5px;
+}
+
 @media (max-width: 600px) {
   header { padding: 43px 16px 42px; }
   header h1 { font-size: 25px; }
@@ -397,6 +408,14 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
   .flash-badge { font-size: 9px; padding: 4px 6px; }
   .modal-content { padding: 19px 14px; }
   .usb-card img { height: 125px; }
+  
+  .extrait-modal-content {
+    max-width: 95%;
+    padding: 12px 12px 16px 12px;
+  }
+  #extraitPlayerContainer iframe {
+    height: 220px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
