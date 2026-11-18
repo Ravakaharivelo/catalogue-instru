@@ -23,7 +23,7 @@
   --page: #f4f6fb;
   --shadow: 0 14px 40px rgba(19, 35, 72, .09);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
   font-family: Inter, "Segoe UI", Arial, sans-serif;
@@ -52,6 +52,20 @@ header::before, header::after {
 }
 header::before { width: 310px; height: 310px; top: -190px; right: -65px; }
 header::after { width: 230px; height: 230px; bottom: -170px; left: -55px; }
+
+/* Fizarana Logo */
+.logo-container {
+  margin-bottom: 14px;
+}
+.logo-container img {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
 header h1 {
   font-size: clamp(27px, 5vw, 42px);
   line-height: 1.15;
@@ -436,6 +450,10 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
 <body>
 
 <header>
+  <!-- Nampidirina eto ilay Logo -->
+  <div class="logo-container">
+    <img src="logo.jpg" alt="Logo Instru Karaoke Mg">
+  </div>
   <h1>🎵 INSTRU KARAOKE MG</h1>
   <p>Catalogue des chansons évangéliques et variétés</p>
 </header>
@@ -561,7 +579,6 @@ footer { text-align: center; padding: 22px 15px; color: #8994a8; font-size: 12px
 <div class="extrait-modal-overlay" id="extraitModal">
   <div class="extrait-modal-content">
     <button class="extrait-close-btn" id="closeExtraitModal">&times;</button>
-    <!-- Novaina ho "Hira feno" ny lohateny -->
     <div class="extrait-modal-title" id="extraitModalSongTitle">Hira feno</div>
     <div id="extraitPlayerContainer"></div>
   </div>
